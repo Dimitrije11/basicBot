@@ -97,7 +97,7 @@ User
 |!commands | | gives a link to the commands |
 |!cookie | (@user) | give a cookie to user |
 |!dclookup / !dc | | use dclookup on yourself |
-|!emoji | | a link to a list with emoji's |
+|!emoji | | http://www.emoji-cheat-sheet.com/ |
 |!eta | | shows how long before you reach the booth |
 |!fb | | links to the room's Facebook page (if set in the settings) |
 |!help | | links to an image to help get people started on plug |
