@@ -35,7 +35,7 @@ Bouncer+
 |!maxlength | X | specify the maximum length a song can be when timeguard is enabled |
 |!move | @user (X) | moves user to position X on the waitlist, default is position 1 |
 |!remove | @user | remove user from the waitlist |
-|!roulette | | start a roulette |
+|!roulette | | Rulet je pokrenut.. !join da ucestvujete.. |
 |!songstats | | toggle song statistics |
 |!unlock | | unlock the waitlist |
 |!welcome | | toggle the welcome message on user join |
