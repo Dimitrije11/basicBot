@@ -23,7 +23,7 @@
     var kill = function () {
         clearInterval(basicBot.room.autodisableInterval);
         clearInterval(basicBot.room.afkInterval);
-        CoolBot.status = false;
+        basicBot.status = false;
     };
 
     var storeToStorage = function () {
@@ -178,10 +178,10 @@
     var botMaintainer = "Benzi (Quoona)"
     var botCreatorIDs = ["3851534", "3934992", "4105209"];
 
-    var CoolBot = {
+    var basicBot = {
         version: "2.2.1",
         status: false,
-        name: "CoolBot",
+        name: "basicBot",
         loggedInID: null,
         scriptLink: "https://rawgit.com/Yemasthui/basicBot/master/basicBot.js",
         cmdLink: "http://git.io/245Ppg",
@@ -243,7 +243,8 @@
             songstats: true,
             commandLiteral: "!",
             blacklists: {
-                
+                NSFW: "https://rawgit.com/Yemasthui/basicBot-customization/master/blacklists/ExampleNSFWlist.json",
+                OP: "https://rawgit.com/Yemasthui/basicBot-customization/master/blacklists/ExampleOPlist.json"
             }
         },
         room: {
@@ -259,7 +260,7 @@
             autoskipTimer: null,
             autodisableInterval: null,
             autodisableFunc: function () {
-                if (coolbot.status && coolbot.settings.autodisable) {
+                if (basicBot.status && basicBot.settings.autodisable) {
                     API.sendChat('!afkdisable');
                     API.sendChat('!joindisable');
                 }
@@ -298,14 +299,14 @@
                 participants: [],
                 countdown: null,
                 startRoulette: function () {
-                    coolbot.room.roulette.rouletteStatus = true;
-                    cooolbot.room.roulette.countdown = setTimeout(function () {
-                       coolbot.room.roulette.endRoulette();
+                    basicBot.room.roulette.rouletteStatus = true;
+                    basicBot.room.roulette.countdown = setTimeout(function () {
+                        basicBot.room.roulette.endRoulette();
                     }, 60 * 1000);
                     API.sendChat(basicBot.chat.isopen);
                 },
                 endRoulette: function () {
-                   coolbot.room.roulette.rouletteStatus = false;
+                    basicBot.room.roulette.rouletteStatus = false;
                     var ind = Math.floor(Math.random() * basicBot.room.roulette.participants.length);
                     var winner = basicBot.room.roulette.participants[ind];
                     basicBot.room.roulette.participants = [];
@@ -1625,12 +1626,26 @@
                 command: 'cookie',
                 rank: 'user',
                 type: 'startsWith',
-                cookies: Daje ti kolačić!
-                Kakvog je ukusa?
-                Jel ukusan?
-                Mljac, Mljac..
-               
-                    
+                cookies: ['has given you a chocolate chip cookie!',
+                    'has given you a soft homemade oatmeal cookie!',
+                    'has given you a plain, dry, old cookie. It was the last one in the bag. Gross.',
+                    'gives you a sugar cookie. What, no frosting and sprinkles? 0/10 would not touch.',
+                    'gives you a chocolate chip cookie. Oh wait, those are raisins. Bleck!',
+                    'gives you an enormous cookie. Poking it gives you more cookies. Weird.',
+                    'gives you a fortune cookie. It reads "Why aren\'t you working on any projects?"',
+                    'gives you a fortune cookie. It reads "Give that special someone a compliment"',
+                    'gives you a fortune cookie. It reads "Take a risk!"',
+                    'gives you a fortune cookie. It reads "Go outside."',
+                    'gives you a fortune cookie. It reads "Don\'t forget to eat your veggies!"',
+                    'gives you a fortune cookie. It reads "Do you even lift?"',
+                    'gives you a fortune cookie. It reads "m808 pls"',
+                    'gives you a fortune cookie. It reads "If you move your hips, you\'ll get all the ladies."',
+                    'gives you a fortune cookie. It reads "I love you."',
+                    'gives you a Golden Cookie. You can\'t eat it because it is made of gold. Dammit.',
+                    'gives you an Oreo cookie with a glass of milk!',
+                    'gives you a rainbow cookie made with love :heart:',
+                    'gives you an old cookie that was left out in the rain, it\'s moldy.',
+                    'bakes you fresh cookies, it smells amazing.'
                 ],
                 getCookie: function () {
                     var c = Math.floor(Math.random() * this.cookies.length);
@@ -2487,7 +2502,7 @@
             },
 
             rouletteCommand: {
-                command: 'rulet',
+                command: 'roulette',
                 rank: 'mod',
                 type: 'exact',
                 functionality: function (chat, cmd) {
