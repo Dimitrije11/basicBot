@@ -233,7 +233,7 @@
             etaRestriction: false,
             welcome: true,
             opLink: null,
-            rulesLink: "http://coolbalkan1.zohosites.com/pravila.html",
+            rulesLink: "https://sites.zoho.com/builder?siteId=49222106#pages/pravila",
             themeLink: null,
             fbLink: "https://www.facebook.com/groups/319438554929150/",
             youtubeLink: "https://www.youtube.com/channel/UCHpFcD7Bax4coW1KiyihTIQ",
