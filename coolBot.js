@@ -196,7 +196,7 @@
             chatLink: "https://rawgit.com/Yemasthui/basicBot/master/lang/en.json",
             startupCap: 1, // 1-200
             startupVolume: 0, // 0-100
-            startupEmoji: false, // true or false
+            startupEmoji: true, // true or false
             maximumAfk: 120,
             afkRemoval: true,
             maximumDc: 15,
@@ -256,7 +256,7 @@
             usercommand: true,
             allcommand: true,
             afkInterval: null,
-            autoskip: false,
+            autoskip: true,
             autoskipTimer: null,
             autodisableInterval: null,
             autodisableFunc: function () {
