@@ -184,7 +184,7 @@
         name: "CoolBOT",
         loggedInID: null,
         scriptLink: "https://rawgit.com/Dimitrije11/basicBot/master/coolBot.js",
-        cmdLink: "http://git.io/245Ppg",
+        cmdLink: "http://coolbalkan1.zohosites.com/coolbot.html",
         chatLink: "https://rawgit.com/Yemasthui/basicBot/master/lang/en.json",
         chat: null,
         loadChat: loadChat,
