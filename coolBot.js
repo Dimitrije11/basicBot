@@ -3038,11 +3038,10 @@
                     else {
                         if (typeof basicBot.settings.youtubeLink === "string")
                             API.sendChat(subChat(basicBot.chat.youtube, {name: chat.un, link: basicBot.settings.youtubeLink}));
+                    
                     }
                 }
-            }
-        }
-    };
+            };
 
     loadChat(basicBot.startup);
 }).call(this);
