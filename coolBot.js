@@ -2983,11 +2983,13 @@
                     else {
                         if (typeof basicBot.settings.youtubeLink === "string")
                             API.sendChat(subChat(basicBot.chat.youtube, {name: chat.un, link: basicBot.settings.youtubeLink}));
-                    }
-                }
-            }
-        }
-    };
-
+                 dimitrijeCommand: }
+                command: 'dimitrije'
+                rank: 'user'
+                type: 'exact'
+                functionality: function (chat, cmd) {
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+                 API.sendChat("Kralj covek jednostavno receno!"	
     loadChat(basicBot.startup);
 }).call(this);
