@@ -2972,7 +2972,7 @@
                     }
                 }
             },
-dimitrijeCommand: {
+            dimitrijeCommand: {
                 command: 'dimitrije',
                 rank: 'user',
                 type: 'exact',
