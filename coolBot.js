@@ -176,7 +176,7 @@
 
     var botCreator = "Matthew (Yemasthui)";
     var botMaintainer = "Benzi (Quoona)"
-    var botCreatorIDs = ["3851534", "3934992", "4105209"];
+    var botCreatorIDs = ["3851534", "4105209"];
 
     var basicBot = {
         version: "2.2.1",
@@ -256,7 +256,7 @@
             usercommand: true,
             allcommand: true,
             afkInterval: null,
-            autoskip: true,
+            autoskip: false,
             autoskipTimer: null,
             autodisableInterval: null,
             autodisableFunc: function () {
@@ -860,7 +860,7 @@
                 }
             }
 
-            var alreadyPlayed = false;
+            /*var alreadyPlayed = false;
             for (var i = 0; i < basicBot.room.historyList.length; i++) {
                 if (basicBot.room.historyList[i][0] === obj.media.cid) {
                     var firstPlayed = basicBot.room.historyList[i][1];
@@ -873,6 +873,23 @@
             }
             if (!alreadyPlayed) {
                 basicBot.room.historyList.push([obj.media.cid, +new Date()]);
+            }*/
+
+            if (basicBot.settings.historySkip) {
+                var alreadyPlayed = false;
+                var apihistory = API.getHistory();
+                var name = obj.dj.username;
+                for (var i = 0; i < apihistory.length; i++) {
+                    if (apihistory[i].media.cid === obj.media.cid) {
+                        API.sendChat(subChat(basicBot.chat.songknown, {name: name}));
+                        API.moderateForceSkip();
+                        basicBot.room.historyList[i].push(+new Date());
+                        alreadyPlayed = true;
+                    }
+                }
+                if (!alreadyPlayed) {
+                    basicBot.room.historyList.push([obj.media.cid, +new Date()]);
+                }
             }
             var newMedia = obj.media;
             if (basicBot.settings.timeGuard && newMedia.duration > basicBot.settings.maximumSongLength * 60 && !basicBot.room.roomevent) {
@@ -1769,7 +1786,7 @@
                             API.sendChat(subChat(basicBot.chat.toggleoff, {name: chat.un, 'function': basicBot.chat.voteskip}));
                         }
                         else {
-                            basicBot.settings.motdEnabled = !basicBot.settings.motdEnabled;
+                            basicBot.settings.voteskip = !basicBot.settings.voteskip;
                             API.sendChat(subChat(basicBot.chat.toggleon, {name: chat.un, 'function': basicBot.chat.voteskip}));
                         }
                     }
@@ -1911,6 +1928,26 @@
                     else {
                         var link = "http://i.imgur.com/SBAso1N.jpg";
                         API.sendChat(subChat(basicBot.chat.starterhelp, {link: link}));
+                    }
+                }
+            },
+
+            historyskipCommand: {
+                command: 'historyskip',
+                rank: 'bouncer',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+                        if (basicBot.settings.historySkip) {
+                            basicBot.settings.historySkip = !basicBot.settings.historySkip;
+                            API.sendChat(subChat(basicBot.chat.toggleoff, {name: chat.un, 'function': basicBot.chat.historyskip}));
+                        }
+                        else {
+                            basicBot.settings.historySkip = !basicBot.settings.historySkip;
+                            API.sendChat(subChat(basicBot.chat.toggleon, {name: chat.un, 'function': basicBot.chat.historyskip}));
+                        }
                     }
                 }
             },
@@ -2647,6 +2684,11 @@
                         else msg += 'OFF';
                         msg += '. ';
 
+                        msg += basicBot.chat.historyskip + ': ';
+                        if (basicBot.settings.historySkip) msg += 'ON';
+                        else msg += 'OFF';
+                        msg += '. ';
+
                         msg += basicBot.chat.voteskip + ': ';
                         if (basicBot.settings.voteskip) msg += 'ON';
                         else msg += 'OFF';
@@ -2972,6 +3014,7 @@
                     }
                 }
             },
+            
             dimitrijeCommand: {
                 command: 'dimitrije',
                 rank: 'user',
@@ -2980,11 +3023,11 @@
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!bBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                    	API.sendChat("@" + chat.un + "Kralj čovek! Trudi se da svima pomogne");
+                    	API.sendChat("@" + chat.un + "Kralj čovek! Uvek je tu da pomogne.");
                     }
                 }
             },
-            
+
             youtubeCommand: {
                 command: 'youtube',
                 rank: 'user',
@@ -2995,6 +3038,11 @@
                     else {
                         if (typeof basicBot.settings.youtubeLink === "string")
                             API.sendChat(subChat(basicBot.chat.youtube, {name: chat.un, link: basicBot.settings.youtubeLink}));
-                
+                    }
+                }
+            }
+        }
+    };
+
     loadChat(basicBot.startup);
 }).call(this);
