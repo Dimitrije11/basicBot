@@ -2990,6 +2990,6 @@
                 functionality: function (chat, cmd) {
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                 API.sendChat("Kralj covek jednostavno receno!"	
+                 API.sendChat(sub.Chat(coolBot.chat.dimitrije, {name:chat.un})));
     loadChat(basicBot.startup);
 }).call(this);
