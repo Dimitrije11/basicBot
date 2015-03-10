@@ -3028,7 +3028,7 @@
                 }
             },
             
-            filippCommand: {
+            filipCommand: {
                 command: 'filip',
                 rank: 'user',
                 type: 'exact',
@@ -3036,7 +3036,7 @@
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                    	API.sendChat("/me @" + chat.un + "Fica carina! tu je uvek da se bori.. ");
+                    	API.sendChat("/me @" + chat.un + "Fica carina! tu je uvek da se bori");
                     }
                 }
             },
