@@ -166,7 +166,7 @@
 
     var basicBot = {
         status: false,
-        name: "McoBot",
+        name: "coolBot",
         loggedInID: null,
         scriptLink: "https://rawgit.com/natzki/PlugdjBot/master/Bot.js",
         cmdLink: "http://git.io/50ox2Q",
@@ -175,7 +175,7 @@
         loadChat: loadChat,
         retrieveSettings: retrieveSettings,
         settings: {
-            botName: "McoBot",
+            botName: "coolbot",
             version: "1.0.5",
             language: "english",
             chatLink: "https://rawgit.com/natzki/PlugdjBot/master/english.json",
@@ -189,7 +189,7 @@
             cycleGuard: true,
             maximumCycletime: 10,
             timeGuard: true,
-            maximumSongLength: 10,
+            maximumSongLength: 6,
             autodisable: true,
             commandCooldown: 30,
             usercommandsEnabled: true,
