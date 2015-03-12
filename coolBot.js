@@ -3014,20 +3014,7 @@
                     }
                 }
             },
-            
-            dimitrijeCommand: {
-                command: 'dimitrije',
-                rank: 'user',
-                type: 'exact',
-                functionality: function (chat, cmd) {
-                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
-                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-                    else {
-                    	    API.sendChat("/me @" + chat.un + "Kralj čovek! Uvek je tu da pomogne.");
-                    }
-                }
-            };
-            
+           
             youtubeCommand: {
                 command: 'youtube',
                 rank: 'user',
