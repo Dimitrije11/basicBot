@@ -213,7 +213,7 @@
             welcome: true,
             opLink: null,
             rulesLink: "http://coolbalkan1.zohosites.com/pravila.html",
-            themeLink: "http://i.imgur.com/9kPye.jpg",
+            themeLink: null,
             fbLink: "https://www.facebook.com/groups/319438554929150/?fref=ts",
             youtubeLink: "https://www.youtube.com/channel/UCHpFcD7Bax4coW1KiyihTIQ",
             website: "http://coolbalkan1.zohosites.com/",
