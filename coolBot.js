@@ -3022,7 +3022,7 @@
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                    	API.sendChat("/me @" + chat.un + " Kralj čovek! Uvek je tu da pomogne. :wink: :+1:");
+                    	API.sendChat("/me @" + chat.un + " On je Host u sobi, napravio je sobu radi zabave, trudi se da svima pomogne i voli da jede čokoladu. :innocent: :stuck_out_tongue_winking_eye:");
                     }
                 }
             },
@@ -3035,7 +3035,7 @@
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                    	API.sendChat("/me @" + chat.un + " Dobar čovek, spreman je da se bori. :trollface:");
+                    	API.sendChat("/me @" + chat.un + " Manager u sobi, brži je od svetlosti, uvek je tu i pravi je prijatelj. :+1:");
                     }
                 }
             },
@@ -3048,7 +3048,7 @@
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                    	API.sendChat("/me @" + chat.un + " Naša opasnica, spremna je da banuje svakog! :kiss:");
+                    	API.sendChat("/me @" + chat.un + " Naša opasnica, voli da se svađa i da deli banove, sa njom ne sme niko da se kači, kraljica! :green_heart:");
                     }
                 }
             },
