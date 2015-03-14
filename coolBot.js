@@ -1627,7 +1627,7 @@
             },
 
             commandsCommand: {
-                command: 'commands',
+                command: 'komande',
                 rank: 'user',
                 type: 'exact',
                 functionality: function (chat, cmd) {
@@ -2705,7 +2705,7 @@
             },
 
             swapCommand: {
-                command: 'swap',
+                command: 'zameni',
                 rank: 'mod',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
