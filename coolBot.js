@@ -1,11 +1,24 @@
 /**
- *Copyright 2014 Yemasthui & natzki
+ *Copyright 2014 Yemasthui
  *Modifications (including forks) of the code to fit personal needs are allowed only for personal use and should refer back to the original source.
  *This software is not for profit, any extension, or unauthorised person providing this software is not authorised to be in a position of any monetary gain from this use of this software. Any and all money gained under the use of the software (which includes donations) must be passed on to the original author.
  */
 
 
 (function () {
+
+    API.getWaitListPosition = function(id){
+        if(typeof id === 'undefined' || id === null){
+            id = API.getUser().id;
+        }
+        var wl = API.getWaitList();
+        for(var i = 0; i < wl.length; i++){
+            if(wl[i].id === id){
+                return i;
+            }
+        }
+        return -1;
+    };
 
     var kill = function () {
         clearInterval(basicBot.room.autodisableInterval);
@@ -19,7 +32,7 @@
         var basicBotStorageInfo = {
             time: Date.now(),
             stored: true,
-            version: basicBot.settings.version
+            version: basicBot.version
         };
         localStorage.setItem("basicBotStorageInfo", JSON.stringify(basicBotStorageInfo));
 
@@ -41,7 +54,7 @@
     var loadChat = function (cb) {
         if (!cb) cb = function () {
         };
-        $.get("https://rawgit.com/natzki/PlugdjBot/master/langIndex.json", function (json) {
+        $.get("https://rawgit.com/Yemasthui/basicBot/master/lang/langIndex.json", function (json) {
             var link = basicBot.chatLink;
             if (json !== null && typeof json !== "undefined") {
                 langIndex = json;
@@ -107,7 +120,7 @@
                 API.chatLog(basicBot.chat.datarestored);
             }
         }
-        var json_sett = null;
+        /*var json_sett = null;
         var roominfo = document.getElementById("room-info");
         info = roominfo.textContent;
         var ref_bot = "@basicBot=";
@@ -126,7 +139,7 @@
                     }
                 }
             });
-        }
+        }*/
 
     };
 
@@ -161,37 +174,45 @@
         return m;
     };
 
-    var botCreator = "Yemasthui. It was customized by Natzki";
-    var botCreatorIDs = [];
+    var botCreator = "Matthew (Yemasthui)";
+    var botMaintainer = "Benzi (Quoona)"
+    var botCreatorIDs = ["3851534", "4105209"];
 
     var basicBot = {
+        version: "2.2.1",
         status: false,
-        name: "coolBot",
+        name: "CoolBOT",
         loggedInID: null,
-        scriptLink: "https://rawgit.com/natzki/PlugdjBot/master/Bot.js",
+        scriptLink: "https://rawgit.com/Dimitrije11/basicBot/master/coolBot.js",
         cmdLink: "http://coolbalkan1.zohosites.com/coolbot.html",
-        chatLink: "https://rawgit.com/natzki/PlugdjBot/master/english.json",
+        chatLink: "https://rawgit.com/Yemasthui/basicBot/master/lang/en.json",
         chat: null,
         loadChat: loadChat,
         retrieveSettings: retrieveSettings,
+        retrieveFromStorage: retrieveFromStorage,
         settings: {
-            botName: "coolbot",
-            version: "1.0.5",
+            botName: "CoolBOT",
             language: "english",
-            chatLink: "https://rawgit.com/natzki/PlugdjBot/master/english.json",
+            chatLink: "https://rawgit.com/Yemasthui/basicBot/master/lang/en.json",
+            startupCap: 1, // 1-200
+            startupVolume: 0, // 0-100
+            startupEmoji: true, // true or false
             maximumAfk: 120,
             afkRemoval: true,
-            maximumDc: 60,
+            maximumDc: 15,
             bouncerPlus: true,
+            blacklistEnabled: true,
             lockdownEnabled: false,
             lockGuard: false,
             maximumLocktime: 10,
             cycleGuard: true,
             maximumCycletime: 10,
+            voteSkip: true,
+            voteSkipLimit: 10,
             timeGuard: true,
-            maximumSongLength: 360,
-            autodisable: true,
-            commandCooldown: 30,
+            maximumSongLength: 6,
+            autodisable: false,
+            commandCooldown: 6,
             usercommandsEnabled: true,
             lockskipPosition: 3,
             lockskipReasons: [
@@ -212,14 +233,14 @@
             etaRestriction: false,
             welcome: true,
             opLink: null,
-            rulesLink: "http://coolbalkan1.zohosites.com/pravila.html",
+            rulesLink: "https://sites.zoho.com/builder?siteId=49222106#pages/pravila",
             themeLink: null,
-            fbLink: "https://www.facebook.com/groups/319438554929150/?fref=ts",
+            fbLink: "https://www.facebook.com/groups/319438554929150/",
             youtubeLink: "https://www.youtube.com/channel/UCHpFcD7Bax4coW1KiyihTIQ",
             website: "http://coolbalkan1.zohosites.com/",
             intervalMessages: [],
             messageInterval: 5,
-            songstats: true,
+            songstats: false,
             commandLiteral: "!",
             blacklists: {
                 NSFW: "https://rawgit.com/Yemasthui/basicBot-customization/master/blacklists/ExampleNSFWlist.json",
@@ -379,7 +400,9 @@
                 var u;
                 if (typeof obj === "object") u = obj;
                 else u = API.getUser(obj);
-                if (botCreatorIDs.indexOf(u.id) > -1) return 10;
+                for (var i = 0; i < botCreatorIDs.length; i++) {
+                    if (botCreatorIDs[i].indexOf(u.id) > -1) return 10;
+                }
                 if (u.gRole < 2) return u.role;
                 else {
                     switch (u.gRole) {
@@ -657,14 +680,14 @@
                             continue;
                         }
                         try {
-                            (function(l){
+                            (function (l) {
                                 $.get(basicBot.settings.blacklists[l], function (data) {
                                     if (typeof data === 'string') {
                                         data = JSON.parse(data);
                                     }
                                     var list = [];
                                     for (var prop in data) {
-                                        if(typeof data[prop].mid !== 'undefined'){
+                                        if (typeof data[prop].mid !== 'undefined') {
                                             list.push(data[prop].mid);
                                         }
                                     }
@@ -777,6 +800,18 @@
                     }
                 }
             }
+
+            var mehs = API.getScore().negative;
+            var woots = API.getScore().positive;
+            var dj = API.getDJ();
+
+            if (basicBot.settings.voteSkip) {
+                if ((mehs - woots) >= (basicBot.settings.voteSkipLimit)) {
+                    API.sendChat(subChat(basicBot.chat.voteskipexceededlimit, {name: dj.username, limit: basicBot.settings.voteSkipLimit}));
+                    API.moderateForceSkip();
+                }
+            }
+
         },
         eventCurateupdate: function (obj) {
             for (var i = 0; i < basicBot.room.users.length; i++) {
@@ -786,8 +821,20 @@
             }
         },
         eventDjadvance: function (obj) {
+            $("#woot").click();
+            var user = basicBot.userUtilities.lookupUser(obj.dj.id)
+            for(var i = 0; i < basicBot.room.users.length; i++){
+                if(basicBot.room.users[i].id === user.id){
+                    basicBot.room.users[i].lastDC = {
+                        time: null,
+                        position: null,
+                        songCount: 0
+                    };
+                }
+            }
+
             var lastplay = obj.lastPlay;
-            if (typeof lastplay === 'undefined') return void (0);
+            if (typeof lastplay === 'undefined') return;
             if (basicBot.settings.songstats) {
                 if (typeof basicBot.chat.songstatistics === "undefined") {
                     API.sendChat("/me " + lastplay.media.author + " - " + lastplay.media.title + ": " + lastplay.score.positive + "W/" + lastplay.score.grabs + "G/" + lastplay.score.negative + "M.")
@@ -805,13 +852,15 @@
 
             var mid = obj.media.format + ':' + obj.media.cid;
             for (var bl in basicBot.room.blacklists) {
-                if (basicBot.room.blacklists[bl].indexOf(mid) > -1) {
-                    API.sendChat(subChat(basicBot.chat.isblacklisted, {blacklist: bl}));
-                    return API.moderateForceSkip();
+                if (basicBot.settings.blacklistEnabled) {
+                    if (basicBot.room.blacklists[bl].indexOf(mid) > -1) {
+                        API.sendChat(subChat(basicBot.chat.isblacklisted, {blacklist: bl}));
+                        return API.moderateForceSkip();
+                    }
                 }
             }
 
-            var alreadyPlayed = false;
+            /*var alreadyPlayed = false;
             for (var i = 0; i < basicBot.room.historyList.length; i++) {
                 if (basicBot.room.historyList[i][0] === obj.media.cid) {
                     var firstPlayed = basicBot.room.historyList[i][1];
@@ -824,30 +873,42 @@
             }
             if (!alreadyPlayed) {
                 basicBot.room.historyList.push([obj.media.cid, +new Date()]);
+            }*/
+
+            if (basicBot.settings.historySkip) {
+                var alreadyPlayed = false;
+                var apihistory = API.getHistory();
+                var name = obj.dj.username;
+                for (var i = 0; i < apihistory.length; i++) {
+                    if (apihistory[i].media.cid === obj.media.cid) {
+                        API.sendChat(subChat(basicBot.chat.songknown, {name: name}));
+                        API.moderateForceSkip();
+                        basicBot.room.historyList[i].push(+new Date());
+                        alreadyPlayed = true;
+                    }
+                }
+                if (!alreadyPlayed) {
+                    basicBot.room.historyList.push([obj.media.cid, +new Date()]);
+                }
             }
             var newMedia = obj.media;
-            if (basicBot.settings.timeGuard && newMedia.duration > basicBot.settings.maximumSongLength + 2 && !basicBot.room.roomevent) {
+            if (basicBot.settings.timeGuard && newMedia.duration > basicBot.settings.maximumSongLength * 60 && !basicBot.room.roomevent) {
                 var name = obj.dj.username;
                 API.sendChat(subChat(basicBot.chat.timelimit, {name: name, maxlength: basicBot.settings.maximumSongLength}));
                 API.moderateForceSkip();
             }
-            var user = basicBot.userUtilities.lookupUser(obj.dj.id);
             if (user.ownSong) {
                 API.sendChat(subChat(basicBot.chat.permissionownsong, {name: user.username}));
                 user.ownSong = false;
             }
-            user.lastDC = {
-                time: null,
-                position: null,
-                songCount: 0
-            };
             clearTimeout(basicBot.room.autoskipTimer);
             if (basicBot.room.autoskip) {
                 var remaining = obj.media.duration * 1000;
                 basicBot.room.autoskipTimer = setTimeout(function () {
                     console.log("Skipping track.");
+                    //API.sendChat('Song stuck, skipping...');
                     API.moderateForceSkip();
-                }, remaining + 1000);
+                }, remaining + 3000);
             }
             storeToStorage();
 
@@ -1111,7 +1172,9 @@
             API.off(API.HISTORY_UPDATE, this.proxy.eventHistoryupdate);
         },
         startup: function () {
-            Function.prototype.toString = function(){return 'Function.'};
+            Function.prototype.toString = function () {
+                return 'Function.'
+            };
             var u = API.getUser();
             if (basicBot.userUtilities.getPermission(u) < 2) return API.chatLog(basicBot.chat.greyuser);
             if (basicBot.userUtilities.getPermission(u) === 2) API.chatLog(basicBot.chat.bouncer);
@@ -1126,7 +1189,7 @@
             retrieveFromStorage();
             window.bot = basicBot;
             basicBot.roomUtilities.updateBlacklists();
-            setInterval(basicBot.roomUtilities.updateBlacklists, 60*60*1000);
+            setInterval(basicBot.roomUtilities.updateBlacklists, 60 * 60 * 1000);
             basicBot.getNewBlacklistedSongs = basicBot.roomUtilities.exportNewBlacklistedSongs;
             basicBot.logNewBlacklistedSongs = basicBot.roomUtilities.logNewBlacklistedSongs;
             if (basicBot.room.roomstats.launchTime === null) {
@@ -1164,13 +1227,26 @@
             }, 60 * 60 * 1000);
             basicBot.loggedInID = API.getUser().id;
             basicBot.status = true;
-            API.sendChat('/cap 1');
-            API.setVolume(0);
-            var emojibutton = $(".icon-emoji-on");
-            if (emojibutton.length > 0) {
-                emojibutton[0].click();
+            API.sendChat('/cap ' + basicBot.settings.startupCap);
+            API.setVolume(basicBot.settings.startupVolume);
+            $("#woot").click();
+            if (basicBot.settings.startupEmoji) {
+                var emojibuttonoff = $(".icon-emoji-off");
+                if (emojibuttonoff.length > 0) {
+                    emojibuttonoff[0].click();
+                }
+                API.chatLog(':smile: Emojis enabled.');
             }
-            loadChat(API.sendChat(subChat(basicBot.chat.online, {botname: basicBot.settings.botName, version: basicBot.settings.version})));
+            else {
+                var emojibuttonon = $(".icon-emoji-on");
+                if (emojibuttonon.length > 0) {
+                    emojibuttonon[0].click();
+                }
+                API.chatLog('Emojis disabled.');
+            }
+            API.chatLog('Avatars capped at ' + basicBot.settings.startupCap);
+            API.chatLog('Volume set to ' + basicBot.settings.startupVolume);
+            loadChat(API.sendChat(subChat(basicBot.chat.online, {botname: basicBot.settings.botName, version: basicBot.version})));
         },
         commands: {
             executable: function (minRank, chat) {
@@ -1367,6 +1443,27 @@
                 }
             },
 
+            autodisableCommand: {
+                command: 'autodisable',
+                rank: 'bouncer',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+                        if (basicBot.settings.autodisable) {
+                            basicBot.settings.autodisable = !basicBot.settings.autodisable;
+                            return API.sendChat(subChat(basicBot.chat.toggleoff, {name: chat.un, 'function': basicBot.chat.autodisable}));
+                        }
+                        else {
+                            basicBot.settings.autodisable = !basicBot.settings.autodisable;
+                            return API.sendChat(subChat(basicBot.chat.toggleon, {name: chat.un, 'function': basicBot.chat.autodisable}));
+                        }
+
+                    }
+                }
+            },
+
             autoskipCommand: {
                 command: 'autoskip',
                 rank: 'mod',
@@ -1384,6 +1481,19 @@
                             basicBot.room.autoskip = !basicBot.room.autoskip;
                             return API.sendChat(subChat(basicBot.chat.toggleon, {name: chat.un, 'function': basicBot.chat.autoskip}));
                         }
+                    }
+                }
+            },
+
+            autowootCommand: {
+                command: 'autowoot',
+                rank: 'user',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+                        API.sendChat(basicBot.chat.autowoot);
                     }
                 }
             },
@@ -1441,12 +1551,32 @@
                             };
                             basicBot.room.newBlacklisted.push(track);
                             basicBot.room.blacklists[list].push(media.format + ':' + media.cid);
-                            API.sendChat(subChat(basicBot.chat.newblacklisted, {name: chat.un, blacklist: list, author: media.author,title: media.title, mid: media.format + ':' + media.cid}));
+                            API.sendChat(subChat(basicBot.chat.newblacklisted, {name: chat.un, blacklist: list, author: media.author, title: media.title, mid: media.format + ':' + media.cid}));
                             API.moderateForceSkip();
-                            if(typeof basicBot.room.newBlacklistedSongFunction === 'function'){
+                            if (typeof basicBot.room.newBlacklistedSongFunction === 'function') {
                                 basicBot.room.newBlacklistedSongFunction(track);
                             }
                         }
+                    }
+                }
+            },
+
+            blinfoCommand: {
+                command: 'blinfo',
+                rank: 'bouncer',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+                        var author = API.getMedia().author;
+                        var title = API.getMedia().title;
+                        var name = chat.un;
+                        var format = API.getMedia().format;
+                        var cid = API.getMedia().cid;
+                        var songid = format + ":" + cid;
+
+                        API.sendChat(subChat(basicBot.chat.blinfo, {name: name, author: author, title: title, songid: songid}));
                     }
                 }
             },
@@ -1564,155 +1694,6 @@
                         }
                     }
                 }
-            },  
-            
-            shoeCommand: {
-                command: 'shoe',
-                rank: 'user',
-                type: 'startsWith',
-                shoes: ['has thrown a shoe at you! :shoe: ',
-                    'has thrown a high-heel at you :high_heel: ',
-                    'has thrown you a plain, dry, old shoe at you. It stinks. Blech!',
-                    'threw a shoe at you, but you catch it and throw it back.',
-                    'threw a shoe at you, but it missed.',
-                    'threw a shoe at you, but it disappeared, never to be seen again.',
-                    'threw a shoe at you, but it bounced off.',
-                    'has failed COMPLETELY by throwing a shoe at you, and hit himself.'
-                ],
-                getShoe: function () {
-                    var c = Math.floor(Math.random() * this.shoes.length);
-                    return this.shoes[c];
-                },
-                functionality: function (chat, cmd) {
-                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
-                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-                    else {
-                        var msg = chat.message;
-
-                        var space = msg.indexOf(' ');
-                        if (space === -1) {
-                            API.sendChat(basicBot.chat.throwshoe);
-                            return false;
-                        }
-                        else {
-                            var name = msg.substring(space + 2);
-                            var user = basicBot.userUtilities.lookupUserName(name);
-                            if (user === false || !user.inRoom) {
-                                return API.sendChat(subChat(basicBot.chat.nousershoe, {name: name}));
-                            }
-                            else if (user.username === chat.un) {
-                                return API.sendChat(subChat(basicBot.chat.selfshoe, {name: name}));
-                            }
-                            else {
-                                return API.sendChat(subChat(basicBot.chat.shoe, {nameto: user.username, namefrom: chat.un, cookie: this.getShoe()}));
-                            }
-                        }
-                    }
-                }
-            }, 
-            
-            loveCommand: {
-                command: 'love',
-                rank: 'user',
-                type: 'startsWith',
-                loves: ['has fallen in love with you. :heart: ',
-                    'has kissed you. How sweet. :kissing_closed_eyes: :heart: ',
-                    'has tried to kiss you. Bue he/she "accidently" kissed her/himself.',
-                    'has kissed you, but you slapped her/him. :rage: ',
-                    'is about to hug you...',
-                    'is hugging you right now. He/she won\'t let go.',
-                    'has just fallen in love with you! :heart:',
-                    'loves you so much, he/she would text you with 5 or less battery percent.',
-                    'loves you so much, he/she would die for your sake.',
-                    'loves you so much, he/she would give you his/her cookies'
-                ],
-                getLove: function () {
-                    var c = Math.floor(Math.random() * this.loves.length);
-                    return this.loves[c];
-                },
-                functionality: function (chat, cmd) {
-                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
-                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-                    else {
-                        var msg = chat.message;
-
-                        var space = msg.indexOf(' ');
-                        if (space === -1) {
-                            API.sendChat(basicBot.chat.throwlove);
-                            return false;
-                        }
-                        else {
-                            var name = msg.substring(space + 2);
-                            var user = basicBot.userUtilities.lookupUserName(name);
-                            if (user === false || !user.inRoom) {
-                                return API.sendChat(subChat(basicBot.chat.nouserlove, {name: name}));
-                            }
-                            else if (user.username === chat.un) {
-                                return API.sendChat(subChat(basicBot.chat.selflove, {name: name}));
-                            }
-                            else {
-                                return API.sendChat(subChat(basicBot.chat.love, {nameto: user.username, namefrom: chat.un, cookie: this.getLove()}));
-                            }
-                        }
-                    }
-                }
-            },  
-            
-            spookCommand: {
-                command: ['spook', 'sp00k'],
-                rank: 'user',
-                type: 'startsWith',
-                spooks: ['has spooked you with a fake spider!',
-                    'has given you a soft homemade bloody plush bear!',
-                    'has given you a plain, dry, old spider web. It was on the floor. Gross.',
-                    'gives you some LSD. What, no skeletons and sprinkles? 0/10 would not touch.',
-                    'gives you a spooky mirror. Oh wait, thats you. Bleck!',
-                    'gives you an enormous skeleton. Poking it gives you more skeletons. Weird.',
-                    'gives you a fortune spider. It reads "Why aren\'t you working on any halloween decoration?"',
-                    'gives you a fortune spider. It reads "Give that special someone a spooky compliment"',
-                    'gives you a fortune spider. It reads "Take a risk!"',
-                    'gives you a fortune spider. It reads "Go outside in the dark."',
-                    'gives you a fortune spider. It reads "Don\'t forget to eat your veggies!"',
-                    'gives you a fortune spider. It reads "Do you even spook?"',
-                    'gives you a fortune spider. It reads "m1337 pls"',
-                    'gives you a fortune spider. It reads "If you move your tentacles, you\'ll get all the ladies."',
-                    'gives you a fortune spider. It reads "I love you."',
-                    'gives you a Golden spider. You can\'t escape it because it is made of gold. Dammit.',
-                    'gives you a piece of flesh with a glass of blood!',
-                    'gives you a rainbow spider made with rainbow webs.',
-                    'gives you an old spider that was left out in the rain, it\'s moldy.',
-                    'bakes you fresh fingernails, they smell amazing.'
-                ],
-                getSpook: function () {
-                    var c = Math.floor(Math.random() * this.spooks.length);
-                    return this.spooks[c];
-                },
-                functionality: function (chat, cmd) {
-                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
-                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-                    else {
-                        var msg = chat.message;
-
-                        var space = msg.indexOf(' ');
-                        if (space === -1) {
-                            API.sendChat(basicBot.chat.spooking);
-                            return false;
-                        }
-                        else {
-                            var name = msg.substring(space + 2);
-                            var user = basicBot.userUtilities.lookupUserName(name);
-                            if (user === false || !user.inRoom) {
-                                return API.sendChat(subChat(basicBot.chat.nouserspook, {name: name}));
-                            }
-                            else if (user.username === chat.un) {
-                                return API.sendChat(subChat(basicBot.chat.selfspook, {name: name}));
-                            }
-                            else {
-                                return API.sendChat(subChat(basicBot.chat.spook, {nameto: user.username, namefrom: chat.un, cookie: this.getSpook()}));
-                            }
-                        }
-                    }
-                }
             },
 
             cycleCommand: {
@@ -1769,6 +1750,49 @@
                 }
             },
 
+            voteskipCommand: {
+                command: 'voteskip',
+                rank: 'manager',
+                type: 'startsWith',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+                        var msg = chat.message;
+                        if (msg.length <= cmd.length + 1) return API.sendChat(subChat(basicBot.chat.voteskiplimit, {name: chat.un, limit: basicBot.settings.voteSkipLimit}));
+                        var argument = msg.substring(cmd.length + 1);
+                        if (!basicBot.settings.voteSkip) basicBot.settings.voteSkip = !basicBot.settings.voteSkip;
+                        if (isNaN(argument)) {
+                            API.sendChat(subChat(basicBot.chat.voteskipinvalidlimit, {name: chat.un}));
+                        }
+                        else {
+                            basicBot.settings.voteSkipLimit = argument;
+                            API.sendChat(subChat(basicBot.chat.voteskipsetlimit, {name: chat.un, limit: basicBot.settings.voteSkipLimit}));
+                        }
+                    }
+                }
+            },
+
+            togglevoteskipCommand: {
+                command: 'togglevoteskip',
+                rank: 'bouncer',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+                        if (basicBot.settings.voteSkip) {
+                            basicBot.settings.voteSkip = !basicBot.settings.voteSkip;
+                            API.sendChat(subChat(basicBot.chat.toggleoff, {name: chat.un, 'function': basicBot.chat.voteskip}));
+                        }
+                        else {
+                            basicBot.settings.voteskip = !basicBot.settings.voteskip;
+                            API.sendChat(subChat(basicBot.chat.toggleon, {name: chat.un, 'function': basicBot.chat.voteskip}));
+                        }
+                    }
+                }
+            },
+
             dclookupCommand: {
                 command: ['dclookup', 'dc'],
                 rank: 'user',
@@ -1793,7 +1817,7 @@
                 }
             },
 
-            deletechatCommand: {
+            /*deletechatCommand: {
                 command: 'deletechat',
                 rank: 'mod',
                 type: 'startsWith',
@@ -1817,7 +1841,7 @@
                         API.sendChat(subChat(basicBot.chat.deletechat, {name: chat.un, username: name}));
                     }
                 }
-            },
+            },*/
 
             emojiCommand: {
                 command: 'emoji',
@@ -1827,7 +1851,7 @@
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                        var link = 'http://goo.gl/lhDGES';
+                        var link = 'http://www.emoji-cheat-sheet.com/';
                         API.sendChat(subChat(basicBot.chat.emojilist, {link: link}));
                     }
                 }
@@ -1861,7 +1885,7 @@
             },
 
             fbCommand: {
-                command: ['facebook', 'fb'],
+                command: 'fb',
                 rank: 'user',
                 type: 'exact',
                 functionality: function (chat, cmd) {
@@ -1904,6 +1928,26 @@
                     else {
                         var link = "http://i.imgur.com/SBAso1N.jpg";
                         API.sendChat(subChat(basicBot.chat.starterhelp, {link: link}));
+                    }
+                }
+            },
+
+            historyskipCommand: {
+                command: 'historyskip',
+                rank: 'bouncer',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+                        if (basicBot.settings.historySkip) {
+                            basicBot.settings.historySkip = !basicBot.settings.historySkip;
+                            API.sendChat(subChat(basicBot.chat.toggleoff, {name: chat.un, 'function': basicBot.chat.historyskip}));
+                        }
+                        else {
+                            basicBot.settings.historySkip = !basicBot.settings.historySkip;
+                            API.sendChat(subChat(basicBot.chat.toggleon, {name: chat.un, 'function': basicBot.chat.historyskip}));
+                        }
                     }
                 }
             },
@@ -2040,7 +2084,7 @@
                         var dj = API.getDJ().id;
                         var isDj = false;
                         if (dj === chat.uid) isDj = true;
-                        if (perm >= 0) {
+                        if (perm >= 1 || isDj) {
                             if (media.format === 1) {
                                 var linkToSong = "https://www.youtube.com/watch?v=" + media.cid;
                                 API.sendChat(subChat(basicBot.chat.songlink, {name: from, link: linkToSong}));
@@ -2280,6 +2324,7 @@
                         }
                         var user = basicBot.userUtilities.lookupUserName(name);
                         if (typeof user === 'boolean') return API.sendChat(subChat(basicBot.chat.invaliduserspecified, {name: chat.un}));
+                        if (user.id === basicBot.loggedInID) return API.sendChat(subChat(basicBot.chat.addbotwaitlist, {name: chat.un}));
                         if (!isNaN(pos)) {
                             API.sendChat(subChat(basicBot.chat.move, {name: chat.un}));
                             basicBot.userUtilities.moveUser(user.id, pos, false);
@@ -2352,6 +2397,13 @@
 
                             }
                             else if (time > 30) {
+                                API.moderateMuteUser(user.id, 1, API.MUTE.LONG);
+                                API.sendChat(subChat(basicBot.chat.mutedtime, {name: chat.un, username: name, time: time}));
+                                setTimeout(function (id) {
+                                    API.moderateUnmuteUser(id);
+                                }, time * 60 * 1000, user.id);
+                            }
+                            else if (time > 15) {
                                 API.moderateMuteUser(user.id, 1, API.MUTE.MEDIUM);
                                 API.sendChat(subChat(basicBot.chat.mutedtime, {name: chat.un, username: name, time: time}));
                                 setTimeout(function (id) {
@@ -2571,18 +2623,18 @@
                 }
             },
 
-            creatorCommand: {
-                command: 'creator',
+            sourceCommand: {
+                command: 'source',
                 rank: 'user',
                 type: 'exact',
                 functionality: function (chat, cmd) {
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                        API.sendChat('/me This bot was made by ' + botCreator + '.');
+                        API.sendChat('/me This bot was created by ' + botCreator + ', but is now maintained by ' + botMaintainer + ".");
                     }
                 }
-            }, 
+            },
 
             statusCommand: {
                 command: 'status',
@@ -2600,10 +2652,15 @@
                         else msg += 'OFF';
                         msg += '. ';
                         msg += basicBot.chat.afksremoved + ": " + basicBot.room.afkList.length + '. ';
-                        msg += basicBot.chat.afklimit + ': ' + basicBot.settings.maximumAfk + ' Minutes. ';
+                        msg += basicBot.chat.afklimit + ': ' + basicBot.settings.maximumAfk + '. ';
 
                         msg += 'Bouncer+: ';
                         if (basicBot.settings.bouncerPlus) msg += 'ON';
+                        else msg += 'OFF';
+                        msg += '. ';
+												
+                        msg += basicBot.chat.blacklist + ': ';
+                        if (basicBot.settings.blacklistEnabled) msg += 'ON';
                         else msg += 'OFF';
                         msg += '. ';
 
@@ -2627,28 +2684,22 @@
                         else msg += 'OFF';
                         msg += '. ';
 
+                        msg += basicBot.chat.historyskip + ': ';
+                        if (basicBot.settings.historySkip) msg += 'ON';
+                        else msg += 'OFF';
+                        msg += '. ';
+
+                        msg += basicBot.chat.voteskip + ': ';
+                        if (basicBot.settings.voteskip) msg += 'ON';
+                        else msg += 'OFF';
+                        msg += '. ';
+
                         var launchT = basicBot.room.roomstats.launchTime;
                         var durationOnline = Date.now() - launchT;
                         var since = basicBot.roomUtilities.msToStr(durationOnline);
                         msg += subChat(basicBot.chat.activefor, {time: since});
-                        
-                        msg +='Version number: ' + basicBot.settings.version + '. '
 
                         return API.sendChat(msg);
-                    }
-                }
-            },
-            
-            supportCommand: {
-                command: 'support',
-                rank: 'user',
-                type: 'exact',
-                functionality: function (chat, cmd) {
-                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
-                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-                    else {
-                        if (typeof basicBot.settings.youtubeLink === "string")
-                            API.sendChat(subChat(basicBot.chat.support, {name: chat.un, link: basicBot.settings.supportLink}));
                     }
                 }
             },
@@ -2670,6 +2721,7 @@
                         var user1 = basicBot.userUtilities.lookupUserName(name1);
                         var user2 = basicBot.userUtilities.lookupUserName(name2);
                         if (typeof user1 === 'boolean' || typeof user2 === 'boolean') return API.sendChat(subChat(basicBot.chat.swapinvalid, {name: chat.un}));
+                        if (user1.id === basicBot.loggedInID || user2.id === basicBot.loggedInID) return API.sendChat(subChat(basicBot.chat.addbottowaitlist, {name: chat.un}));
                         var p1 = API.getWaitListPosition(user1.id) + 1;
                         var p2 = API.getWaitListPosition(user2.id) + 1;
                         if (p1 < 0 || p2 < 0) return API.sendChat(subChat(basicBot.chat.swapwlonly, {name: chat.un}));
@@ -2725,6 +2777,24 @@
                 }
             },
 
+            toggleblCommand: {
+                command: 'togglebl',
+                rank: 'bouncer',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+                        var temp = basicBot.settings.blacklistEnabled;
+                        basicBot.settings.blacklistEnabled = !temp;
+                        if (basicBot.settings.blacklistEnabled) {
+                          return API.sendChat(subChat(basicBot.chat.toggleon, {name: chat.un, 'function': basicBot.chat.blacklist}));
+                        }
+                        else return API.sendChat(subChat(basicBot.chat.toggleoff, {name: chat.un, 'function': basicBot.chat.blacklist}));
+                    }
+                }
+            },
+						
             togglemotdCommand: {
                 command: 'togglemotd',
                 rank: 'bouncer',
@@ -2782,20 +2852,6 @@
                     }
                 }
             },
-            
-            unicornCommand: {
-                command: 'unicorn',
-                rank: 'user',
-                type: 'exact',
-                functionality: function (chat, cmd) {
-                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
-                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-                    else {
-                        API.sendChat("UNICORNS!!!");
-                        API.chatLog("UNICORNS ARE FANCY!", true);
-                    }
-                }
-            },            
 
             unlockCommand: {
                 command: 'unlock',
@@ -2903,20 +2959,6 @@
                     }
                 }
             },
-            
-            twitterCommand: {
-                command: 'twitter',
-                rank: 'user',
-                type: 'exact',
-                functionality: function (chat, cmd) {
-                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
-                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-                    else {
-                        if (typeof basicBot.settings.youtubeLink === "string")
-                            API.sendChat(subChat(basicBot.chat.twitter, {name: chat.un, link: basicBot.settings.twitterLink}));
-                    }
-                }
-            },
 
             voteratioCommand: {
                 command: 'voteratio',
@@ -2971,9 +3013,22 @@
                     }
                 }
             },
+            
+            dimitrijeCommand: {
+                command: 'dimitrije',
+                rank: 'user',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!bBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+                    	API.sendChat("@" + chat.un + "Kralj čovek! Uvek je tu da pomogne.");
+                    }
+                }
+            },
 
             youtubeCommand: {
-                command: ['youtube', 'yt'],
+                command: 'youtube',
                 rank: 'user',
                 type: 'exact',
                 functionality: function (chat, cmd) {
