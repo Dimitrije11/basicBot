@@ -233,7 +233,7 @@
             etaRestriction: false,
             welcome: true,
             opLink: null,
-            rulesLink: "https://sites.zoho.com/builder?siteId=49222106#pages/pravila",
+            rulesLink: "http://coolbalkan1.zohosites.com/pravila.html",
             themeLink: null,
             fbLink: "https://www.facebook.com/groups/319438554929150/",
             youtubeLink: "https://www.youtube.com/channel/UCHpFcD7Bax4coW1KiyihTIQ",
@@ -3022,7 +3022,7 @@
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                    	API.sendChat("/me @" + chat.un + " Kralj čovek! Uvek je tu da pomogne.");
+                    	API.sendChat("/me @" + chat.un + " Kralj čovek! Uvek je tu da pomogne. :wink: :+1:");
                     }
                 }
             },
@@ -3035,7 +3035,7 @@
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                    	API.sendChat("/me @" + chat.un + " Dobar čovek, spreman je da se bori.");
+                    	API.sendChat("/me @" + chat.un + " Dobar čovek, spreman je da se bori. :trollface:");
                     }
                 }
             },
@@ -3048,7 +3048,7 @@
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                    	API.sendChat("/me @" + chat.un + " Naša opasnica, spremna je da banuje svakog!");
+                    	API.sendChat("/me @" + chat.un + " Naša opasnica, spremna je da banuje svakog! :kiss:");
                     }
                 }
             },
