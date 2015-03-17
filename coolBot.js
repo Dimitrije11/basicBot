@@ -2539,7 +2539,7 @@
             },
 
             rouletteCommand: {
-                command: 'roulette',
+                command: 'rulet',
                 rank: 'mod',
                 type: 'exact',
                 functionality: function (chat, cmd) {
@@ -2554,7 +2554,7 @@
             },
 
             rulesCommand: {
-                command: 'rules',
+                command: 'pravila',
                 rank: 'user',
                 type: 'exact',
                 functionality: function (chat, cmd) {
