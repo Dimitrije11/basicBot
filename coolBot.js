@@ -1634,7 +1634,8 @@
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                        API.sendChat(subChat(basicBot.chat.commandslink, {botname: basicBot.settings.botName, link: basicBot.cmdLink}));
+                        API.sendChat("/me @" + chat.un + " Komande za Bota ! http://coolbalkan1.zohosites.com/coolbot.html");
+                    }
                     }
                 }
             },
@@ -1892,8 +1893,7 @@
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                        if (typeof basicBot.settings.fbLink === "string")
-                            API.sendChat(subChat(basicBot.chat.facebook, {link: basicBot.settings.fbLink}));
+                        API.sendChat("/me @" + chat.un + " Učlani se u našu FB grupu ! https://www.facebook.com/groups/319438554929150/?fref=ts");
                     }
                 }
             },
@@ -1926,8 +1926,7 @@
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                        var link = "http://i.imgur.com/SBAso1N.jpg";
-                        API.sendChat(subChat(basicBot.chat.starterhelp, {link: link}));
+                        API.sendChat("/me @" + chat.un + " Ovo je za one koji su novi na Plugu. http://i.imgur.com/Z8aRW3v.png");
                     }
                 }
             },
@@ -2561,8 +2560,7 @@
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                        if (typeof basicBot.settings.rulesLink === "string")
-                            return API.sendChat(subChat(basicBot.chat.roomrules, {link: basicBot.settings.rulesLink}));
+                        API.sendChat("/me @" + chat.un + " Pogledaj pravila naše sobe !  http://coolbalkan1.zohosites.com/pravila.html");
                     }
                 }
             },
@@ -3008,7 +3006,7 @@
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                        API.sendChat("/me @" + chat.un + " Pogledajte naš Website! http://coolbalkan1.zohosites.com/");
+                        API.sendChat("/me @" + chat.un + " Pogledaj naš Website! http://coolbalkan1.zohosites.com/");
                     }
                 }
             },
