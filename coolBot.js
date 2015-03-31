@@ -1493,7 +1493,7 @@
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                        API.sendChat(basicBot.chat.autowoot);
+                        API.sendChat("/me @" + chat.un + " Predlažemo Vam PlugCubed za AutoWoot ! http://plugcubed.net/");
                     }
                 }
             },
@@ -1634,7 +1634,7 @@
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                        API.sendChat(subChat(basicBot.chat.commandslink, {botname: basicBot.settings.botName, link: basicBot.cmdLink}));
+                        API.sendChat("/me @" + chat.un + " Pogledajte komande za Bota !");
                     }
                 }
             },
@@ -1852,7 +1852,7 @@
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
                         var link = 'http://www.emoji-cheat-sheet.com/';
-                        API.sendChat(subChat(basicBot.chat.emojilist, {link: link}));
+                        API.sendChat("/me @" + chat.un + " Smajlićiii !");
                     }
                 }
             },
@@ -1892,8 +1892,7 @@
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                        if (typeof basicBot.settings.fbLink === "string")
-                            API.sendChat(subChat(basicBot.chat.facebook, {link: basicBot.settings.fbLink}));
+                         API.sendChat("/me @" + chat.un + " Učlanite se u našu Facebook grupu! https://www.facebook.com/groups/319438554929150/?fref=ts");
                     }
                 }
             },
@@ -1926,8 +1925,8 @@
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                        var link = "http://i.imgur.com/SBAso1N.jpg";
-                        API.sendChat(subChat(basicBot.chat.starterhelp, {link: link}));
+                        var link = "http://i.imgur.com/Z8aRW3v.png";
+                        API.sendChat("/me @" + chat.un + " Pomoć ako ste novi na Plugu.");
                     }
                 }
             },
@@ -2546,8 +2545,7 @@
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                        if (!basicBot.room.roulette.rouletteStatus) {
-                            basicBot.room.roulette.startRoulette();
+                        API.sendChat("/me @" + chat.un + " Rulet je pokrenut! Kucaj !join da učestvuješ.");
                         }
                     }
                 }
@@ -2561,8 +2559,7 @@
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                        if (typeof basicBot.settings.rulesLink === "string")
-                            return API.sendChat(subChat(basicBot.chat.roomrules, {link: basicBot.settings.rulesLink}));
+                        API.sendChat("/me @" + chat.un + " Pogledaj pravila naše sobe ! http://coolbalkan1.zohosites.com/pravila.html");
                     }
                 }
             },
@@ -3008,8 +3005,7 @@
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                        if (typeof basicBot.settings.website === "string")
-                            API.sendChat(subChat(basicBot.chat.website, {link: basicBot.settings.website}));
+                            API.sendChat("/me @" + chat.un + " Pogledaj naš Website ! http://coolbalkan1.zohosites.com/");
                     }
                 }
             },
