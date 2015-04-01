@@ -1493,7 +1493,7 @@
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                        API.sendChat(basicBot.chat.autowoot);
+                        API.sendChat("/me @" + chat.un + " Mi Vam preporučujemo Origem AutoWoot ! http://origem-woot.com/");
                     }
                 }
             },
@@ -1893,7 +1893,7 @@
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
                         if (typeof basicBot.settings.fbLink === "string")
-                            API.sendChat(subChat(basicBot.chat.facebook, {link: basicBot.settings.fbLink}));
+                            API.sendChat("/me @" + chat.un + " Učlani se u našu FB grupu ! https://www.facebook.com/groups/319438554929150/?fref=ts");
                     }
                 }
             },
