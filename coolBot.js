@@ -235,9 +235,9 @@
             opLink: null,
             rulesLink: "http://coolbalkan1.zohosites.com/pravila.html",
             themeLink: null,
-            fbLink: "https://www.facebook.com/groups/319438554929150/",
-            youtubeLink: "https://www.youtube.com/channel/UCHpFcD7Bax4coW1KiyihTIQ",
-            website: "http://coolbalkan1.zohosites.com/",
+            fbLink: "https://www.facebook.com/pages/Dexrock/406254506140493?fref=ts",
+            youtubeLink: "https://www.youtube.com/channel/UC9-OsEfAts7_SaTRQOBRgjw",
+            website: "http://dexrock.zohosites.com/",
             intervalMessages: [],
             messageInterval: 5,
             songstats: false,
@@ -1893,7 +1893,7 @@
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
                         if (typeof basicBot.settings.fbLink === "string")
-                            API.sendChat("/me @" + chat.un + " Učlani se u našu FB grupu ! https://www.facebook.com/groups/319438554929150/?fref=ts");
+                            API.sendChat("/me @" + chat.un + " Lajkuj FB stranicu ! https://www.facebook.com/pages/Dexrock/406254506140493?fref=ts");
                     }
                 }
             },
@@ -2562,7 +2562,7 @@
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
                         if (typeof basicBot.settings.rulesLink === "string")
-                            API.sendChat("/me @" + chat.un + " Pogledaj pravila sobe ! http://coolbalkan1.zohosites.com/pravila.html");
+                            API.sendChat("/me @" + chat.un + " Pogledaj pravila sobe ! http://dexrock.zohosites.com/pravila.html");
                     }
                 }
             },
@@ -3009,7 +3009,7 @@
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
                         if (typeof basicBot.settings.website === "string")
-                            API.sendChat("/me @" + chat.un + " Pogledaj naš Website ! http://coolbalkan1.zohosites.com/");
+                            API.sendChat("/me @" + chat.un + " Pogledaj naš Website ! http://dexrock.zohosites.com/");
                     }
                 }
             },
@@ -3061,7 +3061,7 @@
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                        API.sendChat("/me @" + chat.un + " Subscribe se na naš Youtube kanal ! https://www.youtube.com/channel/UCHpFcD7Bax4coW1KiyihTIQ");
+                        API.sendChat("/me @" + chat.un + " Subscribe se na Youtube kanal ! https://www.youtube.com/user/drazicdexxx");
                     }
                 }
             }
