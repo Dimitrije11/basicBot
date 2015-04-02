@@ -1893,7 +1893,7 @@
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
                         if (typeof basicBot.settings.fbLink === "string")
-                            API.sendChat("/me @" + chat.un + " Lajkuj FB stranicuu ! https://www.facebook.com/pages/Dexrock/406254506140493?fref=ts");
+                            API.sendChat("/me @" + chat.un + " Lajkuj FB stranicu ! https://www.facebook.com/pages/Dexrock/406254506140493?fref=ts");
                     }
                 }
             },
