@@ -184,7 +184,7 @@
         name: "CoolBOT",
         loggedInID: null,
         scriptLink: "https://rawgit.com/Dimitrije11/basicBot/master/coolBot.js",
-        cmdLink: "http://coolbalkan1.zohosites.com/coolbot.html",
+        cmdLink: "http://dexrock.zohosites.com/coolbot.html",
         chatLink: "https://rawgit.com/Yemasthui/basicBot/master/lang/en.json",
         chat: null,
         loadChat: loadChat,
@@ -1893,7 +1893,7 @@
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
                         if (typeof basicBot.settings.fbLink === "string")
-                            API.sendChat("/me @" + chat.un + " Učlani se u našu FB grupu ! https://www.facebook.com/groups/319438554929150/?fref=ts");
+                            API.sendChat("/me @" + chat.un + " Učlani se u našu FB grupu ! https://www.facebook.com/pages/Dexrock/406254506140493?fref=ts");
                     }
                 }
             },
@@ -2562,7 +2562,7 @@
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
                         if (typeof basicBot.settings.rulesLink === "string")
-                            API.sendChat("/me @" + chat.un + " Pogledaj pravila sobe ! http://coolbalkan1.zohosites.com/pravila.html");
+                            API.sendChat("/me @" + chat.un + " Pogledaj pravila sobe ! http://dexrock.zohosites.com/pravila.html");
                     }
                 }
             },
