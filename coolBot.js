@@ -2562,7 +2562,7 @@
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
                         if (typeof basicBot.settings.rulesLink === "string")
-                            API.sendChat("/me @" + chat.un + " Pogledaj pravila sobe ! http://dexrock.zohosites.com/pravila.html");
+                            API.sendChat("/me @" + chat.un + " Pogledaj pravila sobe ! http://cool-balkan.zohosites.com/pravila.html");
                     }
                 }
             },
