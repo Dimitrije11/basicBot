@@ -1893,7 +1893,7 @@
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
                         if (typeof basicBot.settings.fbLink === "string")
-                            API.sendChat("/me @" + chat.un + " Učlani as eu FB grupu ! https://www.facebook.com/groups/319438554929150/?ref=ts&fref=ts");
+                            API.sendChat("/me @" + chat.un + " Učlani se u FB grupu ! https://www.facebook.com/groups/319438554929150/?ref=ts&fref=ts");
                     }
                 }
             },
