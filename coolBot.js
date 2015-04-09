@@ -1627,7 +1627,7 @@
             },
 
             commandsCommand: {
-                command: 'komande',
+                command: 'commands',
                 rank: 'user',
                 type: 'exact',
                 functionality: function (chat, cmd) {
@@ -2554,7 +2554,7 @@
             },
 
             rulesCommand: {
-                command: 'pravila',
+                command: 'rules',
                 rank: 'user',
                 type: 'exact',
                 functionality: function (chat, cmd) {
