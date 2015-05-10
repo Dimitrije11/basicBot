@@ -233,9 +233,9 @@
             etaRestriction: false,
             welcome: true,
             opLink: null,
-            rulesLink: "http://dexrock.zohosites.com/pravila.html",
+            rulesLink: "http://cool-balkan.zohosites.com/pravila.html",
             themeLink: null,
-            fbLink: "https://www.facebook.com/groups/319438554929150/",
+            fbLink: "https://www.facebook.com/groups/CoolBalkan/",
             youtubeLink: "https://www.youtube.com/channel/UCHpFcD7Bax4coW1KiyihTIQ",
             website: "http://cool-balkan.zohosites.com/",
             intervalMessages: [],
@@ -1634,7 +1634,7 @@
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                        API.sendChat(subChat(basicBot.chat.commandslink, {botname: basicBot.settings.botName, link: basicBot.cmdLink}));
+                        API.sendChat("/me @" + chat.un + " Komande: "); , link: basicBot.cmdLink}));
                     }
                 }
             },
@@ -1852,7 +1852,7 @@
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
                         var link = 'http://www.emoji-cheat-sheet.com/';
-                        API.sendChat(subChat(basicBot.chat.emojilist, {link: link}));
+                        API.sendChat("/me @" + chat.un + " EMMOJIIII :alien:");, {link: link}));
                     }
                 }
             },
@@ -1893,7 +1893,7 @@
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
                         if (typeof basicBot.settings.fbLink === "string")
-                            API.sendChat("/me @" + chat.un + " Učlani se u FB grupu ! https://www.facebook.com/groups/319438554929150/?ref=ts&fref=ts");
+                            API.sendChat("/me @" + chat.un + " Učlani se u FB grupu ! https://www.facebook.com/groups/CoolBalkan/");
                     }
                 }
             },
@@ -2546,8 +2546,8 @@
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                        if (!basicBot.room.roulette.rouletteStatus) {
-                            basicBot.room.roulette.startRoulette();
+                         else {
+                    	API.sendChat("/me @" + chat.un + " Rulet je pokrenut! Kucaj !join da učestvuješ. :sunglasses:");
                         }
                     }
                 }
@@ -2705,7 +2705,7 @@
             },
 
             swapCommand: {
-                command: 'zameni',
+                command: 'swap',
                 rank: 'mod',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
@@ -3035,7 +3035,7 @@
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                    	API.sendChat("/me @" + chat.un + " Manager u sobi, brži je od svetlosti, uvek je tu i pravi je prijatelj. :+1:");
+                    	API.sendChat("/me @" + chat.un + " Co-Host u sobi :) Pravi Andjeo :innocent:");
                     }
                 }
             },
