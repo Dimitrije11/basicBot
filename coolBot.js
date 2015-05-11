@@ -3061,7 +3061,7 @@
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                        API.sendChat("/me @" + chat.un + " Subscribe se na Youtube kanal ! https://www.youtube.com/channel/UCHpFcD7Bax4coW1KiyihTIQ");
+                        API.sendChat("/me @" + chat.un + " Subscribe us ! https://www.youtube.com/channel/UCHpFcD7Bax4coW1KiyihTIQ");
                     }
                 }
             }
