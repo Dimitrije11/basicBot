@@ -1,4 +1,3 @@
-s (2929 sloc)  150.571 kb
 /**
  *Copyright 2014 Yemasthui
  *Modifications (including forks) of the code to fit personal needs are allowed only for personal use and should refer back to the original source.
@@ -182,25 +181,25 @@ s (2929 sloc)  150.571 kb
     var basicBot = {
         version: "2.2.1",
         status: false,
-        name: "MusicClub BOT",
+        name: "CoolBOT",
         loggedInID: null,
         scriptLink: "https://rawgit.com/Dimitrije11/basicBot/master/coolBot.js",
-        cmdLink: "http://coolbalkan1.zohosites.com/coolbot.html",
+        cmdLink: "http://cool-balkan.zohosites.com/coolbot.html",
         chatLink: "https://rawgit.com/Yemasthui/basicBot/master/lang/en.json",
         chat: null,
         loadChat: loadChat,
         retrieveSettings: retrieveSettings,
         retrieveFromStorage: retrieveFromStorage,
         settings: {
-            botName: "MusicClub BOT",
+            botName: "CoolBOT",
             language: "english",
             chatLink: "https://rawgit.com/Yemasthui/basicBot/master/lang/en.json",
             startupCap: 1, // 1-200
             startupVolume: 0, // 0-100
-            startupEmoji: false, // true or false
+            startupEmoji: true, // true or false
             maximumAfk: 120,
             afkRemoval: true,
-            maximumDc: 25,
+            maximumDc: 15,
             bouncerPlus: true,
             blacklistEnabled: true,
             lockdownEnabled: false,
@@ -211,7 +210,7 @@ s (2929 sloc)  150.571 kb
             voteSkip: true,
             voteSkipLimit: 10,
             timeGuard: true,
-            maximumSongLength: 8,
+            maximumSongLength: 6,
             autodisable: false,
             commandCooldown: 6,
             usercommandsEnabled: true,
@@ -234,11 +233,11 @@ s (2929 sloc)  150.571 kb
             etaRestriction: false,
             welcome: true,
             opLink: null,
-            rulesLink: "http://coolbalkan1.zohosites.com/pravila.html",
+            rulesLink: "http://cool-balkan.zohosites.com/pravila.html",
             themeLink: null,
-            fbLink: "https://www.facebook.com/groups/319438554929150/",
+            fbLink: "https://www.facebook.com/groups/CoolBalkan/",
             youtubeLink: "https://www.youtube.com/channel/UCHpFcD7Bax4coW1KiyihTIQ",
-            website: "http://coolbalkan1.zohosites.com/",
+            website: "http://cool-balkan.zohosites.com/",
             intervalMessages: [],
             messageInterval: 5,
             songstats: false,
@@ -1494,7 +1493,7 @@ s (2929 sloc)  150.571 kb
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                        API.sendChat(basicBot.chat.autowoot);
+                        API.sendChat("/me @" + chat.un + " Mi Vam preporučujemo Origem AutoWoot ! http://origem-woot.com/");
                     }
                 }
             },
@@ -1628,14 +1627,14 @@ s (2929 sloc)  150.571 kb
             },
 
             commandsCommand: {
-                command: 'komande',
+                command: 'commands',
                 rank: 'user',
                 type: 'exact',
                 functionality: function (chat, cmd) {
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                        API.sendChat(subChat(basicBot.chat.commandslink, {botname: basicBot.settings.botName, link: basicBot.cmdLink}));
+                        API.sendChat("/me @" + chat.un + " Komande: "); , link: basicBot.cmdLink}));
                     }
                 }
             },
@@ -1853,7 +1852,7 @@ s (2929 sloc)  150.571 kb
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
                         var link = 'http://www.emoji-cheat-sheet.com/';
-                        API.sendChat(subChat(basicBot.chat.emojilist, {link: link}));
+                        API.sendChat("/me @" + chat.un + " EMMOJIIII :alien:");, {link: link}));
                     }
                 }
             },
@@ -1894,7 +1893,7 @@ s (2929 sloc)  150.571 kb
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
                         if (typeof basicBot.settings.fbLink === "string")
-                            API.sendChat(subChat(basicBot.chat.facebook, {link: basicBot.settings.fbLink}));
+                            API.sendChat("/me @" + chat.un + " Učlani se u FB grupu ! https://www.facebook.com/groups/CoolBalkan/");
                     }
                 }
             },
@@ -1927,7 +1926,7 @@ s (2929 sloc)  150.571 kb
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                        var link = "http://i.imgur.com/SBAso1N.jpg";
+                        var link = "http://i.imgur.com/Z8aRW3v.png";
                         API.sendChat(subChat(basicBot.chat.starterhelp, {link: link}));
                     }
                 }
@@ -2540,15 +2539,15 @@ s (2929 sloc)  150.571 kb
             },
 
             rouletteCommand: {
-                command: 'roulette',
+                command: 'rulet',
                 rank: 'mod',
                 type: 'exact',
                 functionality: function (chat, cmd) {
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                        if (!basicBot.room.roulette.rouletteStatus) {
-                            basicBot.room.roulette.startRoulette();
+                         else {
+                    	API.sendChat("/me @" + chat.un + " Rulet je pokrenut! Kucaj !join da učestvuješ. :sunglasses:");
                         }
                     }
                 }
@@ -2563,7 +2562,7 @@ s (2929 sloc)  150.571 kb
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
                         if (typeof basicBot.settings.rulesLink === "string")
-                            return API.sendChat(subChat(basicBot.chat.roomrules, {link: basicBot.settings.rulesLink}));
+                            API.sendChat("/me @" + chat.un + " Pogledaj pravila sobe ! http://cool-balkan.zohosites.com/pravila.html");
                     }
                 }
             },
@@ -2706,7 +2705,7 @@ s (2929 sloc)  150.571 kb
             },
 
             swapCommand: {
-                command: 'zameni',
+                command: 'swap',
                 rank: 'mod',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
@@ -3010,7 +3009,7 @@ s (2929 sloc)  150.571 kb
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
                         if (typeof basicBot.settings.website === "string")
-                            API.sendChat(subChat(basicBot.chat.website, {link: basicBot.settings.website}));
+                            API.sendChat("/me @" + chat.un + " Pogledaj Website ! http://cool-balkan.zohosites.com/");
                     }
                 }
             },
@@ -3036,7 +3035,7 @@ s (2929 sloc)  150.571 kb
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                    	API.sendChat("/me @" + chat.un + " Manager u sobi, brži je od svetlosti, uvek je tu i pravi je prijatelj. :+1:");
+                    	API.sendChat("/me @" + chat.un + " Co-Host u sobi :) Pravi Andjeo :innocent:");
                     }
                 }
             },
@@ -3062,8 +3061,7 @@ s (2929 sloc)  150.571 kb
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                        if (typeof basicBot.settings.youtubeLink === "string")
-                            API.sendChat(subChat(basicBot.chat.youtube, {name: chat.un, link: basicBot.settings.youtubeLink}));
+                        API.sendChat("/me @" + chat.un + " Subscribe se na Youtube kanal ! https://www.youtube.com/channel/UCHpFcD7Bax4coW1KiyihTIQ");
                     }
                 }
             }
