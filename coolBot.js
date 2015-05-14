@@ -181,10 +181,10 @@
     var basicBot = {
         version: "2.2.1",
         status: false,
-        name: "CoolBOT",
+        name: "MusicClub BOT",
         loggedInID: null,
         scriptLink: "https://rawgit.com/Dimitrije11/basicBot/master/coolBot.js",
-        cmdLink: "http://cool-balkan.zohosites.com/coolbot.html",
+        cmdLink: "http://coolbalkanenglish.zohosites.com/bot-commands.html",
         chatLink: "https://rawgit.com/Yemasthui/basicBot/master/lang/en.json",
         chat: null,
         loadChat: loadChat,
@@ -199,7 +199,7 @@
             startupEmoji: true, // true or false
             maximumAfk: 120,
             afkRemoval: true,
-            maximumDc: 15,
+            maximumDc: 20,
             bouncerPlus: true,
             blacklistEnabled: true,
             lockdownEnabled: false,
@@ -210,7 +210,7 @@
             voteSkip: true,
             voteSkipLimit: 10,
             timeGuard: true,
-            maximumSongLength: 6,
+            maximumSongLength: 8,
             autodisable: false,
             commandCooldown: 6,
             usercommandsEnabled: true,
@@ -233,11 +233,11 @@
             etaRestriction: false,
             welcome: true,
             opLink: null,
-            rulesLink: "http://dexrock.zohosites.com/pravila.html",
+            rulesLink: "http://coolbalkanenglish.zohosites.com/rules.html",
             themeLink: null,
-            fbLink: "https://www.facebook.com/groups/319438554929150/",
+            fbLink: "https://www.facebook.com/musiclub?fref=ts",
             youtubeLink: "https://www.youtube.com/channel/UCHpFcD7Bax4coW1KiyihTIQ",
-            website: "http://cool-balkan.zohosites.com/",
+            website: "http://coolbalkanenglish.zohosites.com/",
             intervalMessages: [],
             messageInterval: 5,
             songstats: false,
@@ -3009,7 +3009,7 @@
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
                         if (typeof basicBot.settings.website === "string")
-                            API.sendChat("/me @" + chat.un + " Pogledaj Website ! http://cool-balkan.zohosites.com/");
+                            API.sendChat("/me @" + chat.un + " Look the Website :D ! http://coolbalkanenglish.zohosites.com/");
                     }
                 }
             },
