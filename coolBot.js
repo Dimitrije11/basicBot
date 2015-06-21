@@ -2988,13 +2988,11 @@
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                        if (basicBot.settings.welcome) {
-                            basicBot.settings.welcome = !basicBot.settings.welcome;
-                            return API.sendChat(subChat(basicBot.chat.toggleoff, {name: chat.un, 'function': basicBot.chat.welcomemsg}));
+                        else {
+                    	API.sendChat("/me @" + chat.un + " Dobrodošao u Cool Balkan! Ako si prvi put ovde pogledaj opis sobe! :+1:");
                         }
                         else {
-                            basicBot.settings.welcome = !basicBot.settings.welcome;
-                            return API.sendChat(subChat(basicBot.chat.toggleon, {name: chat.un, 'function': basicBot.chat.welcomemsg}));
+                    	API.sendChat("/me @" + chat.un + " Dobrodošao nazad! :purple_heart:");
                         }
                     }
                 }
