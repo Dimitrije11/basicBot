@@ -54,7 +54,7 @@
     var loadChat = function (cb) {
         if (!cb) cb = function () {
         };
-        $.get("https://rawgit.com/Yemasthui/basicBot/master/lang/langIndex.json", function (json) {
+        $.get("https://rawgit.com/Dimitrije11/basicBot/master/lang/langIndex.json", function (json) {
             var link = basicBot.chatLink;
             if (json !== null && typeof json !== "undefined") {
                 langIndex = json;
@@ -176,16 +176,16 @@
 
     var botCreator = "Matthew (Yemasthui)";
     var botMaintainer = "Benzi (Quoona)"
-    var botCreatorIDs = ["3851534", "3934992", "4105209"];
+    var botCreatorIDs = ["3851534", "4105209"];
 
     var basicBot = {
         version: "2.2.1",
         status: false,
-        name: "CoolBOT",
+        name: "MusicClub BOT",
         loggedInID: null,
         scriptLink: "https://rawgit.com/Dimitrije11/basicBot/master/coolBot.js",
-        cmdLink: "http://git.io/245Ppg",
-        chatLink: "https://rawgit.com/Yemasthui/basicBot/master/lang/en.json",
+        cmdLink: "http://coolbalkanenglish.zohosites.com/bot-commands.html",
+        chatLink: "https://rawgit.com/Dimitrije11/basicBot/master/lang/en.json",
         chat: null,
         loadChat: loadChat,
         retrieveSettings: retrieveSettings,
@@ -193,13 +193,13 @@
         settings: {
             botName: "CoolBOT",
             language: "english",
-            chatLink: "https://rawgit.com/Yemasthui/basicBot/master/lang/en.json",
+            chatLink: "https://rawgit.com/Dimitrije11/basicBot/master/lang/en.json",
             startupCap: 1, // 1-200
             startupVolume: 0, // 0-100
-            startupEmoji: false, // true or false
+            startupEmoji: true, // true or false
             maximumAfk: 120,
             afkRemoval: true,
-            maximumDc: 15,
+            maximumDc: 20,
             bouncerPlus: true,
             blacklistEnabled: true,
             lockdownEnabled: false,
@@ -210,7 +210,7 @@
             voteSkip: true,
             voteSkipLimit: 10,
             timeGuard: true,
-            maximumSongLength: 6,
+            maximumSongLength: 8,
             autodisable: false,
             commandCooldown: 6,
             usercommandsEnabled: true,
@@ -233,11 +233,11 @@
             etaRestriction: false,
             welcome: true,
             opLink: null,
-            rulesLink: "http://coolbalkan1.zohosites.com/pravila.html",
+            rulesLink: "http://coolbalkanenglish.zohosites.com/rules.html",
             themeLink: null,
-            fbLink: "https://www.facebook.com/groups/319438554929150/",
+            fbLink: "https://www.facebook.com/musiclub?fref=ts",
             youtubeLink: "https://www.youtube.com/channel/UCHpFcD7Bax4coW1KiyihTIQ",
-            website: "http://coolbalkan1.zohosites.com/",
+            website: "http://coolbalkanenglish.zohosites.com/",
             intervalMessages: [],
             messageInterval: 5,
             songstats: false,
@@ -860,7 +860,7 @@
                 }
             }
 
-            var alreadyPlayed = false;
+            /*var alreadyPlayed = false;
             for (var i = 0; i < basicBot.room.historyList.length; i++) {
                 if (basicBot.room.historyList[i][0] === obj.media.cid) {
                     var firstPlayed = basicBot.room.historyList[i][1];
@@ -873,6 +873,23 @@
             }
             if (!alreadyPlayed) {
                 basicBot.room.historyList.push([obj.media.cid, +new Date()]);
+            }*/
+
+            if (basicBot.settings.historySkip) {
+                var alreadyPlayed = false;
+                var apihistory = API.getHistory();
+                var name = obj.dj.username;
+                for (var i = 0; i < apihistory.length; i++) {
+                    if (apihistory[i].media.cid === obj.media.cid) {
+                        API.sendChat(subChat(basicBot.chat.songknown, {name: name}));
+                        API.moderateForceSkip();
+                        basicBot.room.historyList[i].push(+new Date());
+                        alreadyPlayed = true;
+                    }
+                }
+                if (!alreadyPlayed) {
+                    basicBot.room.historyList.push([obj.media.cid, +new Date()]);
+                }
             }
             var newMedia = obj.media;
             if (basicBot.settings.timeGuard && newMedia.duration > basicBot.settings.maximumSongLength * 60 && !basicBot.room.roomevent) {
@@ -1476,7 +1493,7 @@
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                        API.sendChat(basicBot.chat.autowoot);
+                        API.sendChat("/me @" + chat.un + " Mi Vam preporučujemo Origem AutoWoot ! http://origem-woot.com/");
                     }
                 }
             },
@@ -1769,7 +1786,7 @@
                             API.sendChat(subChat(basicBot.chat.toggleoff, {name: chat.un, 'function': basicBot.chat.voteskip}));
                         }
                         else {
-                            basicBot.settings.motdEnabled = !basicBot.settings.motdEnabled;
+                            basicBot.settings.voteskip = !basicBot.settings.voteskip;
                             API.sendChat(subChat(basicBot.chat.toggleon, {name: chat.un, 'function': basicBot.chat.voteskip}));
                         }
                     }
@@ -1876,7 +1893,7 @@
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
                         if (typeof basicBot.settings.fbLink === "string")
-                            API.sendChat(subChat(basicBot.chat.facebook, {link: basicBot.settings.fbLink}));
+                            API.sendChat("/me @" + chat.un + " Učlani se u FB grupu ! https://www.facebook.com/groups/319438554929150/?ref=ts&fref=ts");
                     }
                 }
             },
@@ -1909,8 +1926,28 @@
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                        var link = "http://i.imgur.com/SBAso1N.jpg";
+                        var link = "http://i.imgur.com/Z8aRW3v.png";
                         API.sendChat(subChat(basicBot.chat.starterhelp, {link: link}));
+                    }
+                }
+            },
+
+            historyskipCommand: {
+                command: 'historyskip',
+                rank: 'bouncer',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+                        if (basicBot.settings.historySkip) {
+                            basicBot.settings.historySkip = !basicBot.settings.historySkip;
+                            API.sendChat(subChat(basicBot.chat.toggleoff, {name: chat.un, 'function': basicBot.chat.historyskip}));
+                        }
+                        else {
+                            basicBot.settings.historySkip = !basicBot.settings.historySkip;
+                            API.sendChat(subChat(basicBot.chat.toggleon, {name: chat.un, 'function': basicBot.chat.historyskip}));
+                        }
                     }
                 }
             },
@@ -2502,7 +2539,7 @@
             },
 
             rouletteCommand: {
-                command: 'roulette',
+                command: 'rulet',
                 rank: 'mod',
                 type: 'exact',
                 functionality: function (chat, cmd) {
@@ -2525,7 +2562,7 @@
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
                         if (typeof basicBot.settings.rulesLink === "string")
-                            return API.sendChat(subChat(basicBot.chat.roomrules, {link: basicBot.settings.rulesLink}));
+                            API.sendChat("/me @" + chat.un + " Pogledaj pravila sobe ! http://cool-balkan.zohosites.com/pravila.html");
                     }
                 }
             },
@@ -2647,6 +2684,11 @@
                         else msg += 'OFF';
                         msg += '. ';
 
+                        msg += basicBot.chat.historyskip + ': ';
+                        if (basicBot.settings.historySkip) msg += 'ON';
+                        else msg += 'OFF';
+                        msg += '. ';
+
                         msg += basicBot.chat.voteskip + ': ';
                         if (basicBot.settings.voteskip) msg += 'ON';
                         else msg += 'OFF';
@@ -2663,7 +2705,7 @@
             },
 
             swapCommand: {
-                command: 'swap',
+                command: 'zameni',
                 rank: 'mod',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
@@ -2967,11 +3009,50 @@
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
                         if (typeof basicBot.settings.website === "string")
-                            API.sendChat(subChat(basicBot.chat.website, {link: basicBot.settings.website}));
+                            API.sendChat("/me @" + chat.un + " Pogledaj naš Website :D ! http://coolbalkanoffical.zohosites.com/");
+                    }
+                }
+            },
+            
+            dimitrijeCommand: {
+                command: 'dimitrije',
+                rank: 'user',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+                    	API.sendChat("/me @" + chat.un + " On je Host u sobi, napravio je sobu radi zabave, trudi se da svima pomogne i pravi je šmeker :innocent: :stuck_out_tongue_winking_eye:");
                     }
                 }
             },
 
+            filippCommand: {
+                command: 'filip',
+                rank: 'user',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+                    	API.sendChat("/me @" + chat.un + " On je posle Al Caponea glavni u sobi, pravi je prijatelj i brzina. :+1:");
+                    }
+                }
+            },
+            
+            opasnabrooCommand: {
+                command: 'opasnabroo',
+                rank: 'user',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+                    	API.sendChat("/me @" + chat.un + " Naša opasnica, voli da se svađa i da deli banove, sa njom ne sme niko da se kači, kraljica! :green_heart:");
+                    }
+                }
+            },
+            
             youtubeCommand: {
                 command: 'youtube',
                 rank: 'user',
