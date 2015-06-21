@@ -3009,7 +3009,7 @@
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
                         if (typeof basicBot.settings.website === "string")
-                            API.sendChat("/me @" + chat.un + " Look the Website :D ! http://coolbalkanenglish.zohosites.com/");
+                            API.sendChat("/me @" + chat.un + " Pogledaj naš Website :D ! http://coolbalkanoffical.zohosites.com/");
                     }
                 }
             },
@@ -3022,7 +3022,7 @@
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                    	API.sendChat("/me @" + chat.un + " On je Host u sobi, napravio je sobu radi zabave, trudi se da svima pomogne i voli da jede čokoladu. :innocent: :stuck_out_tongue_winking_eye:");
+                    	API.sendChat("/me @" + chat.un + " On je Host u sobi, napravio je sobu radi zabave, trudi se da svima pomogne i pravi je šmeker :innocent: :stuck_out_tongue_winking_eye:");
                     }
                 }
             },
@@ -3035,7 +3035,7 @@
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                    	API.sendChat("/me @" + chat.un + " Manager u sobi, brži je od svetlosti, uvek je tu i pravi je prijatelj. :+1:");
+                    	API.sendChat("/me @" + chat.un + " On je posle Al Caponea glavni u sobi, pravi je prijatelj i brzina. :+1:");
                     }
                 }
             },
@@ -3061,7 +3061,7 @@
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                        API.sendChat("/me @" + chat.un + " Subscribe us ! https://www.youtube.com/channel/UCHpFcD7Bax4coW1KiyihTIQ");
+                        API.sendChat("/me @" + chat.un + " Subscribe! https://www.youtube.com/channel/UCHpFcD7Bax4coW1KiyihTIQ");
                     }
                 }
             }
