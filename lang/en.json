@@ -127,7 +127,7 @@
     "skip": "/me [%%NAME%% je koristio skip.]",
     "madeby": "/me Ovog bota je napravio %%NAME%%.",
     "activefor": "Ja sam aktivan %%TIME%%.",
-    "swapinvalid": "/me [@%%NAME%%] Ne ispravno upisano ime. (Nema imena sa razmakom!)",
+    "swapinvalid": "/me [@%%NAME%%] Neispravno upisano ime. (Nema imena sa razmakom!)",
     "swapwlonly": "/me [@%%NAME%%] Zameni samo osobe na WaitListi!",
     "swapping": "/me Menjam %%NAME1%% sa %%NAME2%%.",
     "genres": "/me Pronađi žanrove muzike ovde: %%LINK%%",
@@ -138,7 +138,7 @@
     "unmuterank": "/me [@%%NAME%%] Ne možeš da mutuješ osobu koja ima veći rank od tebe.",
     "commandscd": "/me [@%%NAME%%] Usporavanje komande je na %%TIME%% sekundi",
     "voteratio": "/me [@%%NAME%%] @%%USERNAME%% ~ wootova: %%WOOT%%, mehova: %%MEHS%%, ratio (w/m): %%RATIO%%.",
-    "website": "/me Pogledajte naš Website: %%LINK%%",
-    "youtube": "/me [%%NAME%%] Bacite Subscribe na YT kanal: %%LINK%%",
+    "website": "/me Website :punch: %%LINK%%",
+    "youtube": "/me [%%NAME%%] Pretplati se na Youtube kanal! :point_right: : %%LINK%%",
     "songstatistics": "/me %%ARTIST%% - %%TITLE%%: %%WOOTS%%W/%%GRABS%%G/%%MEHS%%M."
 }
